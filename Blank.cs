@@ -108,17 +108,9 @@ namespace Notepad
         {
             if(saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (isSaved)
-                {
-                    UnmarkPage();
-                }
-                else
-                {
-                    isSaved = true;
-                }
-
+                isSaved = true;
                 pagePath = saveFileDialog.FileName;
-                pageName = this.pagePath;
+                pageName = pagePath;
                 Text = pageName;
                 WriteToFileFromRichTextBox();
             }
@@ -159,17 +151,20 @@ namespace Notepad
             {
                 return;
             }
-            else
-            {
-                MarkPage();
-            }
+
+            MarkPage();
         }
 
         private void Blank_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!isSaved)
             {
-                DialogResult result = MessageBox.Show("Зберегти внесені зміни до файлу?", "Notepad", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                DialogResult result = MessageBox.Show(
+                    "Зберегти внесені зміни до файлу?", 
+                    "Notepad", 
+                    MessageBoxButtons.YesNoCancel, 
+                    MessageBoxIcon.Exclamation);
+
                 if (result == DialogResult.Yes)
                 {
                     if (String.IsNullOrEmpty(pagePath))
