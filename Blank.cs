@@ -74,20 +74,20 @@ namespace Notepad
             this.pagePath = pagePath;
             pageName = this.pagePath;
             Text = pageName;
-            ReadFromFile();
+            ReadFromFileToRichTextBox();
             Show();
         }
 
-        private void WriteToFile()
+        private void WriteToFileFromRichTextBox()
         {
             using (StreamWriter writer = new StreamWriter(pagePath, false))
             {
                 writer.WriteLine(richTextBox.Text);
-                richTextBox.Text = richTextBox.Text;
             }
+            richTextBox.Modified = false;
         }
 
-        private void ReadFromFile()
+        private void ReadFromFileToRichTextBox()
         {
             using (StreamReader reader = new StreamReader(pagePath))
             {
@@ -97,9 +97,9 @@ namespace Notepad
 
         internal void Save()
         {
-            WriteToFile();
             if (!isSaved)
             {
+                WriteToFileFromRichTextBox();
                 UnmarkPage();
             }
         }
@@ -120,7 +120,7 @@ namespace Notepad
                 pagePath = saveFileDialog.FileName;
                 pageName = this.pagePath;
                 Text = pageName;
-                WriteToFile();
+                WriteToFileFromRichTextBox();
             }
         }
 
@@ -156,7 +156,9 @@ namespace Notepad
         private void RichTextBox_ModifiedChanged(object sender, EventArgs e)
         {
             if (richTextBox.Modified == false)
+            {
                 return;
+            }
             else
             {
                 MarkPage();
