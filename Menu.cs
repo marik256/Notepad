@@ -126,8 +126,8 @@ namespace Notepad
             {
                 Blank blank = new Blank(this);
                 blank.Open(openFileDialog.FileName);
+                EnableAllItemsRelatedToBlank();
             }
-            EnableAllItemsRelatedToBlank();
         }
 
         internal void SaveToolStripMenuItem_Click(object sender, EventArgs e)

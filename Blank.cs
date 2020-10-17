@@ -180,9 +180,11 @@ namespace Notepad
                 {
                     e.Cancel = true;
                 }
+            }
 
-                if (menu.GetNumberOfMdiChildren() == 1)
-                    menu.DisableAllItemsRelatedToBlank();
+            if (menu.GetNumberOfMdiChildren() == 1)
+            {
+                menu.DisableAllItemsRelatedToBlank();
             }
         }
 
