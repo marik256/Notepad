@@ -6,22 +6,22 @@ namespace Notepad
 {
     internal partial class Blank : Form
     {
-        private bool isSaved;
-        private string bufferText = "";
-        private string pagePath = "";
-        private string pageName = "";
-        private readonly int pageNumber;
-        private readonly Menu menu;
+        private bool _isSaved;
+        private string _bufferText = "";
+        private string _pagePath = "";
+        private string _pageName = "";
+        private readonly int _pageNumber;
+        private readonly Menu _menu;
 
         internal Blank(Menu menu)
         {
             InitializeComponent();
-            this.menu = menu;
+            this._menu = menu;
             MdiParent = menu;
-            pageNumber = menu.GetNumberOfMdiChildren();
-            pageName = "Сторінка " + pageNumber;
-            Text = pageName;
-            isSaved = false;
+            _pageNumber = menu.GetNumberOfMdiChildren();
+            _pageName = "Сторінка " + _pageNumber;
+            Text = _pageName;
+            _isSaved = false;
             richTextBox.Modified = false;
         }
 
@@ -29,7 +29,7 @@ namespace Notepad
         {
             if (!string.IsNullOrEmpty(richTextBox.SelectedText))
             {
-                bufferText = richTextBox.SelectedText;
+                _bufferText = richTextBox.SelectedText;
                 richTextBox.SelectedText = "";
             }
         }
@@ -38,13 +38,13 @@ namespace Notepad
         {
             if (!string.IsNullOrEmpty(richTextBox.SelectedText))
             {
-                bufferText = richTextBox.SelectedText;
+                _bufferText = richTextBox.SelectedText;
             }
         }
 
         internal void Paste()
         {
-            richTextBox.SelectedText = bufferText;
+            richTextBox.SelectedText = _bufferText;
         }
 
         internal void SelectAll()
@@ -55,7 +55,7 @@ namespace Notepad
         internal void Delete()
         {
             richTextBox.SelectedText = "";
-            bufferText = "";
+            _bufferText = "";
         }
 
         internal void Undo()
@@ -70,17 +70,17 @@ namespace Notepad
 
         internal void Open(string pagePath)
         {
-            isSaved = true;
-            this.pagePath = pagePath;
-            pageName = this.pagePath;
-            Text = pageName;
+            _isSaved = true;
+            this._pagePath = pagePath;
+            _pageName = this._pagePath;
+            Text = _pageName;
             ReadFromFileToRichTextBox();
             Show();
         }
 
         private void WriteToFileFromRichTextBox()
         {
-            using (StreamWriter writer = new StreamWriter(pagePath, false))
+            using (StreamWriter writer = new StreamWriter(_pagePath, false))
             {
                 writer.WriteLine(richTextBox.Text);
             }
@@ -89,7 +89,7 @@ namespace Notepad
 
         private void ReadFromFileToRichTextBox()
         {
-            using (StreamReader reader = new StreamReader(pagePath))
+            using (StreamReader reader = new StreamReader(_pagePath))
             {
                 richTextBox.Text = reader.ReadToEnd();
             }
@@ -97,7 +97,7 @@ namespace Notepad
 
         internal void Save()
         {
-            if (!isSaved)
+            if (!_isSaved)
             {
                 WriteToFileFromRichTextBox();
                 UnmarkPage();
@@ -108,11 +108,30 @@ namespace Notepad
         {
             if(saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                isSaved = true;
-                pagePath = saveFileDialog.FileName;
-                pageName = pagePath;
-                Text = pageName;
+                _isSaved = true;
+                _pagePath = saveFileDialog.FileName;
+                _pageName = _pagePath;
+                Text = _pageName;
                 WriteToFileFromRichTextBox();
+            }
+        }
+
+        internal void ChangeFont()
+        {
+            if (string.IsNullOrEmpty(richTextBox.SelectedText))
+            {
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBox.Font = fontDialog.Font;
+                }
+            }
+            else
+            {
+                fontDialog.Font = richTextBox.SelectionFont;
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBox.SelectionFont = fontDialog.Font;
+                }
             }
         }
 
@@ -133,16 +152,16 @@ namespace Notepad
 
         private void MarkPage()
         {
-            pageName = pageName.Insert(0, "*");
-            Text = pageName;
-            isSaved = false;
+            _pageName = _pageName.Insert(0, "*");
+            Text = _pageName;
+            _isSaved = false;
         }
 
         private void UnmarkPage()
         {
-            pageName = pageName.Remove(0, 1);
-            Text = pageName;
-            isSaved = true;
+            _pageName = _pageName.Remove(0, 1);
+            Text = _pageName;
+            _isSaved = true;
         }
 
         private void RichTextBox_ModifiedChanged(object sender, EventArgs e)
@@ -157,7 +176,7 @@ namespace Notepad
 
         private void Blank_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!isSaved)
+            if (!_isSaved)
             {
                 DialogResult result = MessageBox.Show(
                     "Зберегти внесені зміни до файлу?", 
@@ -167,7 +186,7 @@ namespace Notepad
 
                 if (result == DialogResult.Yes)
                 {
-                    if (String.IsNullOrEmpty(pagePath))
+                    if (String.IsNullOrEmpty(_pagePath))
                         SaveAs();
                     else
                         Save();
@@ -179,18 +198,23 @@ namespace Notepad
                 }
             }
 
-            if (menu.GetNumberOfMdiChildren() == 1)
+            if (_menu.GetNumberOfMdiChildren() == 1)
             {
-                menu.DisableAllItemsRelatedToBlank();
+                _menu.DisableAllItemsRelatedToBlank();
             }
         }
 
         private void Blank_Activated(object sender, EventArgs e)
         {
-            if (isSaved)
-                menu.EnableItemsAfterSavePage();
+            if (_isSaved)
+                _menu.EnableItemsAfterSavePage();
             else
-                menu.DisableItemsBeforeSavePage();
+                _menu.DisableItemsBeforeSavePage();
+        }
+
+        private void FontToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeFont();
         }
     }
 }

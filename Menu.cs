@@ -23,6 +23,7 @@ namespace Notepad
             pasteToolStripMenuItem.Enabled = false;
             selectAllToolStripMenuItem.Enabled = false;
             deleteToolStripMenuItem.Enabled = false;
+            fontToolStripMenuItem.Enabled = false;
         }
 
         internal void DisableItemsBeforeSavePage()
@@ -43,6 +44,7 @@ namespace Notepad
             pasteToolStripMenuItem.Enabled = true;
             selectAllToolStripMenuItem.Enabled = true;
             deleteToolStripMenuItem.Enabled = true;
+            fontToolStripMenuItem.Enabled = true;
         }
 
         internal void EnableItemsAfterSavePage()
@@ -156,6 +158,12 @@ namespace Notepad
         private void Menu_Click(object sender, EventArgs e)
         {
             DisableAllItemsRelatedToBlank();
+        }
+
+        private void FontToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Blank blank = (Blank)ActiveMdiChild;
+            blank.ChangeFont();
         }
     }
 }
