@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Notepad
@@ -12,17 +13,33 @@ namespace Notepad
         private string _pageName = "";
         private readonly int _pageNumber;
         private readonly Menu _menu;
+        private readonly string _numberOfCharactersLable;
+        private readonly string _currentTimeLable;
 
         internal Blank(Menu menu)
         {
             InitializeComponent();
+
             this._menu = menu;
             MdiParent = menu;
             _pageNumber = menu.GetNumberOfMdiChildren();
+
             _pageName = "Сторінка " + _pageNumber;
             Text = _pageName;
             _isSaved = false;
+            
             richTextBox.Modified = false;
+
+            _numberOfCharactersLable = "Кількість символів:";
+            _currentTimeLable = "Час старту:";
+
+            amountToolStripStatusLabel.Text = _numberOfCharactersLable +
+                                              " " +
+                                              richTextBox.Text.Length.ToString();
+            timeToolStripStatusLabel.Text = _currentTimeLable + 
+                                            " " + 
+                                            Convert.ToString(DateTime.Now.ToShortTimeString());
+            timeToolStripStatusLabel.ToolTipText = Convert.ToString(DateTime.Today.ToLongDateString());
         }
 
         internal void Cut()
@@ -281,6 +298,13 @@ namespace Notepad
         private void FontColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeColor();
+        }
+
+        private void RichTextBox_TextChanged(object sender, EventArgs e)
+        {
+            amountToolStripStatusLabel.Text = _numberOfCharactersLable +
+                                              " " + 
+                                              richTextBox.Text.Length.ToString();
         }
     }
 }

@@ -40,7 +40,11 @@
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.amountToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // richTextBox
@@ -54,6 +58,7 @@
             this.richTextBox.TabIndex = 0;
             this.richTextBox.Text = "";
             this.richTextBox.ModifiedChanged += new System.EventHandler(this.RichTextBox_ModifiedChanged);
+            this.richTextBox.TextChanged += new System.EventHandler(this.RichTextBox_TextChanged);
             // 
             // contextMenuStrip
             // 
@@ -112,17 +117,53 @@
             // 
             this.saveFileDialog.Filter = "Усі файли (*.*)|*.*|Текстовий документ (*.txt)|*.txt|Файл RTF (*.rtf)|*.rtf";
             // 
+            // statusStrip
+            // 
+            this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.amountToolStripStatusLabel,
+            this.timeToolStripStatusLabel});
+            this.statusStrip.Location = new System.Drawing.Point(0, 420);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.ShowItemToolTips = true;
+            this.statusStrip.Size = new System.Drawing.Size(800, 30);
+            this.statusStrip.TabIndex = 1;
+            // 
+            // amountToolStripStatusLabel
+            // 
+            this.amountToolStripStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.amountToolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Adjust;
+            this.amountToolStripStatusLabel.Name = "amountToolStripStatusLabel";
+            this.amountToolStripStatusLabel.Size = new System.Drawing.Size(149, 24);
+            this.amountToolStripStatusLabel.Text = "Кількість символів: ";
+            // 
+            // timeToolStripStatusLabel
+            // 
+            this.timeToolStripStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.timeToolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Adjust;
+            this.timeToolStripStatusLabel.Name = "timeToolStripStatusLabel";
+            this.timeToolStripStatusLabel.Size = new System.Drawing.Size(45, 24);
+            this.timeToolStripStatusLabel.Text = "Час: ";
+            // 
             // Blank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.richTextBox);
             this.Name = "Blank";
             this.Activated += new System.EventHandler(this.Blank_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Blank_FormClosing);
             this.contextMenuStrip.ResumeLayout(false);
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -139,5 +180,8 @@
         private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.ToolStripMenuItem fontColorToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel amountToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel timeToolStripStatusLabel;
     }
 }
