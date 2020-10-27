@@ -71,14 +71,23 @@ namespace Notepad
         internal void Open(string pagePath)
         {
             _isSaved = true;
-            this._pagePath = pagePath;
-            _pageName = this._pagePath;
+            _pagePath = pagePath;
+            _pageName = _pagePath;
             Text = _pageName;
             ReadFromFileToRichTextBox();
             Show();
         }
 
-        private void WriteToFileFromRichTextBox()
+        private void WriteToRTF()
+        {
+            using (StreamWriter writer = new StreamWriter(_pagePath, false))
+            {
+                writer.WriteLine(richTextBox.Rtf);
+            }
+            richTextBox.Modified = false;
+        }
+        
+        private void WriteToTXT()
         {
             using (StreamWriter writer = new StreamWriter(_pagePath, false))
             {
@@ -87,11 +96,44 @@ namespace Notepad
             richTextBox.Modified = false;
         }
 
-        private void ReadFromFileToRichTextBox()
+        private void WriteToFileFromRichTextBox()
+        {
+            if (Path.GetExtension(_pagePath) == ".rtf")
+            {
+                WriteToRTF();
+            }
+
+            if (Path.GetExtension(_pagePath) == ".txt")
+            {
+                WriteToTXT();
+            }
+        }
+
+        private void ReadFromRTF()
+        {
+            richTextBox.Rtf = File.ReadAllText(_pagePath);
+            richTextBox.Modified = false;
+            UnmarkPage();
+        }
+
+        private void ReadFromTXT()
         {
             using (StreamReader reader = new StreamReader(_pagePath))
             {
                 richTextBox.Text = reader.ReadToEnd();
+            }
+        }
+
+        private void ReadFromFileToRichTextBox()
+        {
+            if (Path.GetExtension(_pagePath) == ".rtf")
+            {
+                ReadFromRTF();
+            }
+
+            if (Path.GetExtension(_pagePath) == ".txt")
+            {
+                ReadFromTXT();
             }
         }
 
