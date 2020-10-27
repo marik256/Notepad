@@ -165,5 +165,11 @@ namespace Notepad
             Blank blank = (Blank)ActiveMdiChild;
             blank.ChangeFont();
         }
+
+        private void FontColorStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Blank blank = (Blank)ActiveMdiChild;
+            blank.ChangeColor();
+        }
     }
 }

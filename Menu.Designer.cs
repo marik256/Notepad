@@ -53,6 +53,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontColorStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сервисToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +83,7 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip.Size = new System.Drawing.Size(800, 30);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -100,7 +101,7 @@
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(59, 26);
             this.файлToolStripMenuItem.Text = "&Файл";
             // 
             // createToolStripMenuItem
@@ -196,9 +197,10 @@
             this.selectAllToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.toolStripSeparator6,
-            this.fontToolStripMenuItem});
+            this.fontToolStripMenuItem,
+            this.fontColorStripMenuItem});
             this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
-            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
+            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(74, 26);
             this.правкаToolStripMenuItem.Text = "&Правка";
             // 
             // undoToolStripMenuItem
@@ -285,6 +287,13 @@
             this.fontToolStripMenuItem.Text = "Шрифт";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.FontToolStripMenuItem_Click);
             // 
+            // fontColorStripMenuItem
+            // 
+            this.fontColorStripMenuItem.Name = "fontColorStripMenuItem";
+            this.fontColorStripMenuItem.Size = new System.Drawing.Size(250, 26);
+            this.fontColorStripMenuItem.Text = "Колір тексту";
+            this.fontColorStripMenuItem.Click += new System.EventHandler(this.FontColorStripMenuItem_Click);
+            // 
             // сервисToolStripMenuItem
             // 
             this.сервисToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -292,7 +301,7 @@
             this.параметрыToolStripMenuItem,
             this.розташуватиToolStripMenuItem});
             this.сервисToolStripMenuItem.Name = "сервисToolStripMenuItem";
-            this.сервисToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
+            this.сервисToolStripMenuItem.Size = new System.Drawing.Size(68, 26);
             this.сервисToolStripMenuItem.Text = "&Сервіс";
             // 
             // настройкиToolStripMenuItem
@@ -347,7 +356,7 @@
             this.toolStripSeparator5,
             this.опрограммеToolStripMenuItem});
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(77, 26);
             this.справкаToolStripMenuItem.Text = "До&відка";
             // 
             // содержаниеToolStripMenuItem
@@ -381,7 +390,7 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = "Text Files(*.txt)|*.txt|All Files(*.*)|*.*";
+            this.openFileDialog.Filter = "Усі файли (*.*)|*.*|Текстовий документ (*.txt)|*.txt|Файл RTF (*.rtf)|*.rtf";
             // 
             // Menu
             // 
@@ -443,6 +452,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fontColorStripMenuItem;
     }
 }
 

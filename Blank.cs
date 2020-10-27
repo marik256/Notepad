@@ -177,6 +177,25 @@ namespace Notepad
             }
         }
 
+        internal void ChangeColor()
+        {
+            if (string.IsNullOrEmpty(richTextBox.SelectedText))
+            {
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBox.ForeColor = colorDialog.Color;
+                }
+            }
+            else
+            {
+                colorDialog.Color = richTextBox.SelectionColor;
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBox.SelectionColor = colorDialog.Color;
+                }
+            }
+        }
+
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Cut();
@@ -257,6 +276,11 @@ namespace Notepad
         private void FontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeFont();
+        }
+
+        private void FontColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeColor();
         }
     }
 }
