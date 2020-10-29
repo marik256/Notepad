@@ -1,55 +1,74 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Notepad
 {
-    internal partial class Menu : Form
+    public partial class Menu : Form
     {
+        private readonly List<ToolStripMenuItem> _allItemsRelatedToBlank;
+        private readonly List<ToolStripMenuItem> _allItemsRelatedToSaveBlank;
+
+        internal int NumberOfSearhBoxInstance { get; set; } = 0;
+
         internal Menu()
         {
             InitializeComponent();
+
+            _allItemsRelatedToBlank = new List<ToolStripMenuItem>
+            {
+                saveToolStripMenuItem,
+                saveAsToolStripMenuItem,
+                printToolStripMenuItem,
+                previewToolStripMenuItem,
+                undoToolStripMenuItem,
+                redoToolStripMenuItem,
+                cutToolStripMenuItem,
+                copyToolStripMenuItem,
+                pasteToolStripMenuItem,
+                selectAllToolStripMenuItem,
+                deleteToolStripMenuItem,
+                fontToolStripMenuItem,
+                fontColorStripMenuItem,
+                searchToolStripMenuItem
+            };
+
+            _allItemsRelatedToSaveBlank = new List<ToolStripMenuItem>
+            {
+                saveToolStripMenuItem
+            };
         }
 
         internal void DisableAllItemsRelatedToBlank()
         {
-            saveToolStripMenuItem.Enabled = false;
-            saveAsToolStripMenuItem.Enabled = false;
-            printToolStripMenuItem.Enabled = false;
-            previewToolStripMenuItem.Enabled = false;
-            undoToolStripMenuItem.Enabled = false;
-            redoToolStripMenuItem1.Enabled = false;
-            cutToolStripMenuItem.Enabled = false;
-            copyToolStripMenuItem.Enabled = false;
-            pasteToolStripMenuItem.Enabled = false;
-            selectAllToolStripMenuItem.Enabled = false;
-            deleteToolStripMenuItem.Enabled = false;
-            fontToolStripMenuItem.Enabled = false;
+            foreach (var stripItem in _allItemsRelatedToBlank)
+            {
+                stripItem.Enabled = false;
+            }
         }
 
-        internal void DisableItemsBeforeSavePage()
+        internal void DisableItemsBeforeSaveBlank()
         {
-            saveToolStripMenuItem.Enabled = false;
+            foreach (var stripItem in _allItemsRelatedToSaveBlank)
+            {
+                stripItem.Enabled = false;
+            }
         }
 
         private void EnableAllItemsRelatedToBlank()
         {
-            saveToolStripMenuItem.Enabled = true;
-            saveAsToolStripMenuItem.Enabled = true;
-            printToolStripMenuItem.Enabled = true;
-            previewToolStripMenuItem.Enabled = true;
-            undoToolStripMenuItem.Enabled = true;
-            redoToolStripMenuItem1.Enabled = true;
-            cutToolStripMenuItem.Enabled = true;
-            copyToolStripMenuItem.Enabled = true;
-            pasteToolStripMenuItem.Enabled = true;
-            selectAllToolStripMenuItem.Enabled = true;
-            deleteToolStripMenuItem.Enabled = true;
-            fontToolStripMenuItem.Enabled = true;
+            foreach (var stripItem in _allItemsRelatedToBlank)
+            {
+                stripItem.Enabled = true;
+            }
         }
 
-        internal void EnableItemsAfterSavePage()
+        internal void EnableItemsAfterSaveBlank()
         {
-            saveToolStripMenuItem.Enabled = true;
+            foreach (var stripItem in _allItemsRelatedToSaveBlank)
+            {
+                stripItem.Enabled = true;
+            }
         }
 
         internal int GetNumberOfMdiChildren()
@@ -62,7 +81,7 @@ namespace Notepad
             Blank blank = new Blank(this);
             blank.Show();
             EnableAllItemsRelatedToBlank();
-            DisableItemsBeforeSavePage();
+            DisableItemsBeforeSaveBlank();
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -142,7 +161,7 @@ namespace Notepad
         {
             Blank blank = (Blank)ActiveMdiChild;
             blank.SaveAs();
-            EnableItemsAfterSavePage();
+            EnableItemsAfterSaveBlank();
         }
         
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -170,6 +189,16 @@ namespace Notepad
         {
             Blank blank = (Blank)ActiveMdiChild;
             blank.ChangeColor();
+        }
+
+        private void SearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild.GetType() != typeof(Blank))
+            {
+                return;
+            }
+
+            new SearchBox(this, (Blank)ActiveMdiChild);
         }
     }
 }

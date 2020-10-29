@@ -37,12 +37,14 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.amountToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.timeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.formatToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -69,9 +71,11 @@
             this.pasteToolStripMenuItem,
             this.toolStripSeparator1,
             this.fontToolStripMenuItem,
-            this.fontColorToolStripMenuItem});
+            this.fontColorToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.searchToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(163, 130);
+            this.contextMenuStrip.Size = new System.Drawing.Size(163, 160);
             // 
             // cutToolStripMenuItem
             // 
@@ -113,6 +117,18 @@
             this.fontColorToolStripMenuItem.Text = "Колір тексту";
             this.fontColorToolStripMenuItem.Click += new System.EventHandler(this.FontColorToolStripMenuItem_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(159, 6);
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(162, 24);
+            this.searchToolStripMenuItem.Text = "Пошук";
+            this.searchToolStripMenuItem.Click += new System.EventHandler(this.SearchToolStripMenuItem_Click);
+            // 
             // saveFileDialog
             // 
             this.saveFileDialog.Filter = "Усі файли (*.*)|*.*|Текстовий документ (*.txt)|*.txt|Файл RTF (*.rtf)|*.rtf";
@@ -122,7 +138,7 @@
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.amountToolStripStatusLabel,
-            this.timeToolStripStatusLabel});
+            this.formatToolStripStatusLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 420);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.ShowItemToolTips = true;
@@ -139,15 +155,15 @@
             this.amountToolStripStatusLabel.Size = new System.Drawing.Size(149, 24);
             this.amountToolStripStatusLabel.Text = "Кількість символів: ";
             // 
-            // timeToolStripStatusLabel
+            // formatToolStripStatusLabel
             // 
-            this.timeToolStripStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            this.formatToolStripStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.timeToolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Adjust;
-            this.timeToolStripStatusLabel.Name = "timeToolStripStatusLabel";
-            this.timeToolStripStatusLabel.Size = new System.Drawing.Size(45, 24);
-            this.timeToolStripStatusLabel.Text = "Час: ";
+            this.formatToolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Adjust;
+            this.formatToolStripStatusLabel.Name = "formatToolStripStatusLabel";
+            this.formatToolStripStatusLabel.Size = new System.Drawing.Size(74, 24);
+            this.formatToolStripStatusLabel.Text = "Формат: ";
             // 
             // Blank
             // 
@@ -159,6 +175,7 @@
             this.Name = "Blank";
             this.Activated += new System.EventHandler(this.Blank_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Blank_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Blank_FormClosed);
             this.contextMenuStrip.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
@@ -182,6 +199,8 @@
         private System.Windows.Forms.ToolStripMenuItem fontColorToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel amountToolStripStatusLabel;
-        private System.Windows.Forms.ToolStripStatusLabel timeToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel formatToolStripStatusLabel;
     }
 }

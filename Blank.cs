@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Notepad
@@ -11,18 +12,23 @@ namespace Notepad
         private string _bufferText = "";
         private string _pagePath = "";
         private string _pageName = "";
+        private string _pageFormat = ".txt";
         private readonly int _pageNumber;
         private readonly Menu _menu;
         private readonly string _numberOfCharactersLable;
-        private readonly string _currentTimeLable;
+        private readonly string _formatLable;
+        
+        internal SearchBox SearchBox { get; set; }
+
+        internal string PageName => _pageName;
 
         internal Blank(Menu menu)
         {
             InitializeComponent();
 
-            this._menu = menu;
+            _menu = menu;
             MdiParent = menu;
-            _pageNumber = menu.GetNumberOfMdiChildren();
+            _pageNumber = menu.GetNumberOfMdiChildren() - menu.NumberOfSearhBoxInstance;
 
             _pageName = "Сторінка " + _pageNumber;
             Text = _pageName;
@@ -30,16 +36,12 @@ namespace Notepad
             
             richTextBox.Modified = false;
 
-            _numberOfCharactersLable = "Кількість символів:";
-            _currentTimeLable = "Час старту:";
+            _numberOfCharactersLable = "Кількість символів: ";
+            _formatLable = "Формат: ";
 
-            amountToolStripStatusLabel.Text = _numberOfCharactersLable +
-                                              " " +
+            amountToolStripStatusLabel.Text = _numberOfCharactersLable + 
                                               richTextBox.Text.Length.ToString();
-            timeToolStripStatusLabel.Text = _currentTimeLable + 
-                                            " " + 
-                                            Convert.ToString(DateTime.Now.ToShortTimeString());
-            timeToolStripStatusLabel.ToolTipText = Convert.ToString(DateTime.Today.ToLongDateString());
+            formatToolStripStatusLabel.Text = _formatLable + _pageFormat;
         }
 
         internal void Cut()
@@ -89,6 +91,8 @@ namespace Notepad
         {
             _isSaved = true;
             _pagePath = pagePath;
+            _pageFormat = Path.GetExtension(pagePath);
+            formatToolStripStatusLabel.Text = _formatLable + _pageFormat;
             _pageName = _pagePath;
             Text = _pageName;
             ReadFromFileToRichTextBox();
@@ -230,19 +234,21 @@ namespace Notepad
 
         private void MarkPage()
         {
-            _pageName = _pageName.Insert(0, "*");
-            Text = _pageName;
+            Text = _pageName.Insert(0, "*");
             _isSaved = false;
         }
 
         private void UnmarkPage()
         {
-            _pageName = _pageName.Remove(0, 1);
-            Text = _pageName;
+            if (Text[0] == '*')
+            {
+                Text = Text.Remove(0, 1);
+            }
+
             _isSaved = true;
         }
 
-        private void RichTextBox_ModifiedChanged(object sender, EventArgs e)
+        internal void RichTextBox_ModifiedChanged(object sender, EventArgs e)
         {
             if (richTextBox.Modified == false)
             {
@@ -282,12 +288,20 @@ namespace Notepad
             }
         }
 
+        private void Blank_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (SearchBox != null)
+            {
+                SearchBox.Close();
+            }
+        }
+
         private void Blank_Activated(object sender, EventArgs e)
         {
             if (_isSaved)
-                _menu.EnableItemsAfterSavePage();
+                _menu.EnableItemsAfterSaveBlank();
             else
-                _menu.DisableItemsBeforeSavePage();
+                _menu.DisableItemsBeforeSaveBlank();
         }
 
         private void FontToolStripMenuItem_Click(object sender, EventArgs e)
@@ -305,6 +319,29 @@ namespace Notepad
             amountToolStripStatusLabel.Text = _numberOfCharactersLable +
                                               " " + 
                                               richTextBox.Text.Length.ToString();
+        }
+
+        private void SearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new SearchBox(_menu, this);
+        }
+
+        internal Match SearchInRichTextBox2(Regex regex, int initialIndex)
+        {
+            return regex.Match(richTextBox.Text, initialIndex);
+        }
+
+        internal void ClearHighlight()
+        {
+            richTextBox.SelectAll();
+            richTextBox.SelectionBackColor = Color.White;
+            richTextBox.DeselectAll();
+        }
+
+        internal void HighlightSearchString(int initialIndex, int lenght)
+        {
+            richTextBox.Select(initialIndex, lenght);
+            richTextBox.SelectionBackColor = Color.Yellow;
         }
     }
 }
