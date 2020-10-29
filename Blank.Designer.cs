@@ -51,12 +51,14 @@
             // 
             // richTextBox
             // 
+            this.richTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox.ContextMenuStrip = this.contextMenuStrip;
-            this.richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox.EnableAutoDragDrop = true;
             this.richTextBox.Location = new System.Drawing.Point(0, 0);
             this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(800, 450);
+            this.richTextBox.Size = new System.Drawing.Size(782, 429);
             this.richTextBox.TabIndex = 0;
             this.richTextBox.Text = "";
             this.richTextBox.ModifiedChanged += new System.EventHandler(this.RichTextBox_ModifiedChanged);
@@ -139,10 +141,10 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.amountToolStripStatusLabel,
             this.formatToolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 420);
+            this.statusStrip.Location = new System.Drawing.Point(0, 428);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.ShowItemToolTips = true;
-            this.statusStrip.Size = new System.Drawing.Size(800, 30);
+            this.statusStrip.Size = new System.Drawing.Size(782, 30);
             this.statusStrip.TabIndex = 1;
             // 
             // amountToolStripStatusLabel
@@ -169,7 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(782, 458);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.richTextBox);
             this.Name = "Blank";

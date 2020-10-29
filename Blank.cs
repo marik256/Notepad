@@ -9,7 +9,6 @@ namespace Notepad
     internal partial class Blank : Form
     {
         private bool _isSaved;
-        private string _bufferText = "";
         private string _pagePath = "";
         private string _pageName = "";
         private string _pageFormat = ".txt";
@@ -48,7 +47,7 @@ namespace Notepad
         {
             if (!string.IsNullOrEmpty(richTextBox.SelectedText))
             {
-                _bufferText = richTextBox.SelectedText;
+                Clipboard.SetDataObject(richTextBox.SelectedText);
                 richTextBox.SelectedText = "";
             }
         }
@@ -57,13 +56,21 @@ namespace Notepad
         {
             if (!string.IsNullOrEmpty(richTextBox.SelectedText))
             {
-                _bufferText = richTextBox.SelectedText;
+                Clipboard.SetDataObject(richTextBox.SelectedText);
             }
         }
 
         internal void Paste()
         {
-            richTextBox.SelectedText = _bufferText;
+            IDataObject dataObject = Clipboard.GetDataObject();
+            if (dataObject.GetDataPresent(DataFormats.Text))
+            {
+                richTextBox.SelectedText = (string)dataObject.GetData(DataFormats.Text);
+            }
+            else
+            {
+                return;
+            }
         }
 
         internal void SelectAll()
@@ -74,7 +81,6 @@ namespace Notepad
         internal void Delete()
         {
             richTextBox.SelectedText = "";
-            _bufferText = "";
         }
 
         internal void Undo()
@@ -132,17 +138,16 @@ namespace Notepad
 
         private void ReadFromRTF()
         {
-            richTextBox.Rtf = File.ReadAllText(_pagePath);
+            richTextBox.LoadFile(_pagePath, RichTextBoxStreamType.RichText);
             richTextBox.Modified = false;
             UnmarkPage();
         }
 
         private void ReadFromTXT()
         {
-            using (StreamReader reader = new StreamReader(_pagePath))
-            {
-                richTextBox.Text = reader.ReadToEnd();
-            }
+            richTextBox.LoadFile(_pagePath, RichTextBoxStreamType.PlainText);
+            richTextBox.Modified = false;
+            UnmarkPage();
         }
 
         private void ReadFromFileToRichTextBox()
