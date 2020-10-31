@@ -9,6 +9,7 @@ namespace Notepad
     internal partial class Blank : Form
     {
         private bool _isSaved;
+        private bool _isBlocked = false;
         private string _pagePath = "";
         private string _pageName = "";
         private string _pageFormat = ".txt";
@@ -16,7 +17,7 @@ namespace Notepad
         private readonly Menu _menu;
         private readonly string _numberOfCharactersLable;
         private readonly string _formatLable;
-        
+
         internal SearchBox SearchBox { get; set; }
 
         internal string PageName => _pageName;
@@ -102,24 +103,21 @@ namespace Notepad
             _pageName = _pagePath;
             Text = _pageName;
             ReadFromFileToRichTextBox();
+            _isBlocked = true;
             Show();
+            richTextBox.Modified = false;
+            _isBlocked = false;
         }
 
         private void WriteToRTF()
         {
-            using (StreamWriter writer = new StreamWriter(_pagePath, false))
-            {
-                writer.WriteLine(richTextBox.Rtf);
-            }
+            richTextBox.SaveFile(_pagePath, RichTextBoxStreamType.RichText);
             richTextBox.Modified = false;
         }
         
         private void WriteToTXT()
         {
-            using (StreamWriter writer = new StreamWriter(_pagePath, false))
-            {
-                writer.WriteLine(richTextBox.Text);
-            }
+            richTextBox.SaveFile(_pagePath, RichTextBoxStreamType.PlainText);
             richTextBox.Modified = false;
         }
 
@@ -138,16 +136,18 @@ namespace Notepad
 
         private void ReadFromRTF()
         {
+            _isBlocked = true;
             richTextBox.LoadFile(_pagePath, RichTextBoxStreamType.RichText);
             richTextBox.Modified = false;
-            UnmarkPage();
+            _isBlocked = false;
         }
 
         private void ReadFromTXT()
         {
+            _isBlocked = true;
             richTextBox.LoadFile(_pagePath, RichTextBoxStreamType.PlainText);
             richTextBox.Modified = false;
-            UnmarkPage();
+            _isBlocked = false;
         }
 
         private void ReadFromFileToRichTextBox()
@@ -169,6 +169,7 @@ namespace Notepad
             {
                 WriteToFileFromRichTextBox();
                 UnmarkPage();
+                _isSaved = true;
             }
         }
 
@@ -239,28 +240,29 @@ namespace Notepad
 
         private void MarkPage()
         {
-            Text = _pageName.Insert(0, "*");
-            _isSaved = false;
+            if (Text[0] != '*')
+            {
+                Text = _pageName.Insert(0, "*");
+            }
         }
 
-        private void UnmarkPage()
+        internal void UnmarkPage()
         {
             if (Text[0] == '*')
             {
                 Text = Text.Remove(0, 1);
             }
-
-            _isSaved = true;
         }
 
-        internal void RichTextBox_ModifiedChanged(object sender, EventArgs e)
+        private void RichTextBox_ModifiedChanged(object sender, EventArgs e)
         {
-            if (richTextBox.Modified == false)
+            if (richTextBox.Modified == false || _isBlocked)
             {
                 return;
             }
 
             MarkPage();
+            _isSaved = false;
         }
 
         private void Blank_FormClosing(object sender, FormClosingEventArgs e)
@@ -328,25 +330,42 @@ namespace Notepad
 
         private void SearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new SearchBox(_menu, this);
+            if (SearchBox == null)
+            {
+                new SearchBox(_menu, this);
+            }
         }
 
-        internal Match SearchInRichTextBox2(Regex regex, int initialIndex)
+        internal Match SearchInRichTextBox(Regex regex, int initialIndex)
         {
             return regex.Match(richTextBox.Text, initialIndex);
         }
 
         internal void ClearHighlight()
         {
+            _isBlocked = true;
             richTextBox.SelectAll();
             richTextBox.SelectionBackColor = Color.White;
             richTextBox.DeselectAll();
+            richTextBox.Modified = false;
+            _isBlocked = false;
         }
 
         internal void HighlightSearchString(int initialIndex, int lenght)
         {
+            _isBlocked = true;
             richTextBox.Select(initialIndex, lenght);
             richTextBox.SelectionBackColor = Color.Yellow;
+            richTextBox.Modified = false;
+            _isBlocked = false;
+        }
+
+        internal void SetIsSaved()
+        {
+            if(string.IsNullOrEmpty(_pagePath))
+            {
+                _isSaved = true;
+            }
         }
     }
 }

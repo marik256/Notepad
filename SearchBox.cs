@@ -46,11 +46,11 @@ namespace Notepad
             }
 
             Regex regex = new Regex(pattern, options);
-            Match match = _blank.SearchInRichTextBox2(regex, 0);
+            Match match = _blank.SearchInRichTextBox(regex, 0);
             while (match.Success)
             {
                 _blank.HighlightSearchString(match.Index, match.Length);
-                match = _blank.SearchInRichTextBox2(regex, match.Index + match.Length);
+                match = _blank.SearchInRichTextBox(regex, match.Index + match.Length);
             }
         }
 
@@ -63,6 +63,8 @@ namespace Notepad
         {
             --_menu.NumberOfSearhBoxInstance;
             _blank.ClearHighlight();
+            _blank.SearchBox = null;
+            _blank.SetIsSaved();
         }
 
         private void RegisterCheckBox_CheckedChanged(object sender, EventArgs e)

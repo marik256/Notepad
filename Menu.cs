@@ -153,12 +153,22 @@ namespace Notepad
 
         internal void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (ActiveMdiChild.GetType() != typeof(Blank))
+            {
+                return;
+            }
+
             Blank blank = (Blank)ActiveMdiChild;
             blank.Save();
         }
 
         internal void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (ActiveMdiChild.GetType() != typeof(Blank))
+            {
+                return;
+            }
+
             Blank blank = (Blank)ActiveMdiChild;
             blank.SaveAs();
             EnableItemsAfterSaveBlank();
@@ -198,7 +208,11 @@ namespace Notepad
                 return;
             }
 
-            new SearchBox(this, (Blank)ActiveMdiChild);
+            Blank _blank = (Blank)ActiveMdiChild;
+            if (_blank.SearchBox == null)
+            {
+                new SearchBox(this, (Blank)ActiveMdiChild);
+            }
         }
     }
 }
