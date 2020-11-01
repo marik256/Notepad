@@ -7,7 +7,9 @@ namespace Notepad
     public partial class Menu : Form
     {
         private readonly List<ToolStripMenuItem> _allItemsRelatedToBlank;
+        private readonly List<ToolStripButton> _allButtonsRelatedToBlank;
         private readonly List<ToolStripMenuItem> _allItemsRelatedToSaveBlank;
+        private readonly List<ToolStripButton> _allButtonsRelatedToSaveBlank;
 
         internal int NumberOfSearhBoxInstance { get; set; } = 0;
 
@@ -33,41 +35,74 @@ namespace Notepad
                 searchToolStripMenuItem
             };
 
+            _allButtonsRelatedToBlank = new List<ToolStripButton>
+            {
+                saveToolStripButton,
+                cutToolStripButton,
+                copyToolStripButton,
+                pasteToolStripButton
+            };
+
             _allItemsRelatedToSaveBlank = new List<ToolStripMenuItem>
             {
                 saveToolStripMenuItem
             };
+
+            _allButtonsRelatedToSaveBlank = new List<ToolStripButton>
+            {
+                saveToolStripButton
+            };
         }
 
-        internal void DisableAllItemsRelatedToBlank()
+        internal void DisableAllControlsRelatedToBlank()
         {
             foreach (var stripItem in _allItemsRelatedToBlank)
             {
                 stripItem.Enabled = false;
             }
+
+            foreach (var stripButton in _allButtonsRelatedToBlank)
+            {
+                stripButton.Enabled = false;
+            }
         }
 
-        internal void DisableItemsBeforeSaveBlank()
+        internal void DisableControlsBeforeSaveBlank()
         {
             foreach (var stripItem in _allItemsRelatedToSaveBlank)
             {
                 stripItem.Enabled = false;
             }
+
+            foreach (var stripButton in _allButtonsRelatedToSaveBlank)
+            {
+                stripButton.Enabled = false;
+            }
         }
 
-        private void EnableAllItemsRelatedToBlank()
+        private void EnableAllControlsRelatedToBlank()
         {
             foreach (var stripItem in _allItemsRelatedToBlank)
             {
                 stripItem.Enabled = true;
             }
+
+            foreach (var stripButton in _allButtonsRelatedToBlank)
+            {
+                stripButton.Enabled = true;
+            }
         }
 
-        internal void EnableItemsAfterSaveBlank()
+        internal void EnableControlsAfterSaveBlank()
         {
             foreach (var stripItem in _allItemsRelatedToSaveBlank)
             {
                 stripItem.Enabled = true;
+            }
+
+            foreach (var stripButton in _allButtonsRelatedToSaveBlank)
+            {
+                stripButton.Enabled = true;
             }
         }
 
@@ -80,8 +115,8 @@ namespace Notepad
         {
             Blank blank = new Blank(this);
             blank.Show();
-            EnableAllItemsRelatedToBlank();
-            DisableItemsBeforeSaveBlank();
+            EnableAllControlsRelatedToBlank();
+            DisableControlsBeforeSaveBlank();
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -147,7 +182,7 @@ namespace Notepad
             {
                 Blank blank = new Blank(this);
                 blank.Open(openFileDialog.FileName);
-                EnableAllItemsRelatedToBlank();
+                EnableAllControlsRelatedToBlank();
             }
         }
 
@@ -171,7 +206,7 @@ namespace Notepad
 
             Blank blank = (Blank)ActiveMdiChild;
             blank.SaveAs();
-            EnableItemsAfterSaveBlank();
+            EnableControlsAfterSaveBlank();
         }
         
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -181,12 +216,12 @@ namespace Notepad
 
         private void Menu_Load(object sender, EventArgs e)
         {
-            DisableAllItemsRelatedToBlank();
+            DisableAllControlsRelatedToBlank();
         }
 
         private void Menu_Click(object sender, EventArgs e)
         {
-            DisableAllItemsRelatedToBlank();
+            DisableAllControlsRelatedToBlank();
         }
 
         private void FontToolStripMenuItem_Click(object sender, EventArgs e)
@@ -213,6 +248,65 @@ namespace Notepad
             {
                 new SearchBox(this, (Blank)ActiveMdiChild);
             }
+        }
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About about = new About(this);
+            about.Show();
+        }
+
+        private void CreateToolStripButton_Click(object sender, EventArgs e)
+        {
+            Blank blank = new Blank(this);
+            blank.Show();
+            EnableAllControlsRelatedToBlank();
+            DisableControlsBeforeSaveBlank();
+        }
+
+        private void OpenToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Blank blank = new Blank(this);
+                blank.Open(openFileDialog.FileName);
+                EnableAllControlsRelatedToBlank();
+            }
+        }
+
+        private void SaveToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild.GetType() != typeof(Blank))
+            {
+                return;
+            }
+
+            Blank blank = (Blank)ActiveMdiChild;
+            blank.Save();
+        }
+
+        private void CutToolStripButton_Click(object sender, EventArgs e)
+        {
+            Blank blank = (Blank)ActiveMdiChild;
+            blank.Cut();
+        }
+
+        private void CopyToolStripButton_Click(object sender, EventArgs e)
+        {
+            Blank blank = (Blank)ActiveMdiChild;
+            blank.Copy();
+        }
+
+        private void PasteToolStripButton_Click(object sender, EventArgs e)
+        {
+            Blank blank = (Blank)ActiveMdiChild;
+            blank.Paste();
+        }
+
+        private void AboutToolStripButton_Click(object sender, EventArgs e)
+        {
+            About about = new About(this);
+            about.Show();
         }
     }
 }

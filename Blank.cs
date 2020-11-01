@@ -9,7 +9,6 @@ namespace Notepad
     internal partial class Blank : Form
     {
         private bool _isSaved;
-        private bool _isBlocked = false;
         private string _pagePath = "";
         private string _pageName = "";
         private string _pageFormat = ".txt";
@@ -17,6 +16,9 @@ namespace Notepad
         private readonly Menu _menu;
         private readonly string _numberOfCharactersLable;
         private readonly string _formatLable;
+
+
+        public bool IsBlocked { get; set; } = false;
 
         internal SearchBox SearchBox { get; set; }
 
@@ -103,10 +105,10 @@ namespace Notepad
             _pageName = _pagePath;
             Text = _pageName;
             ReadFromFileToRichTextBox();
-            _isBlocked = true;
+            IsBlocked = true;
             Show();
             richTextBox.Modified = false;
-            _isBlocked = false;
+            IsBlocked = false;
         }
 
         private void WriteToRTF()
@@ -136,18 +138,18 @@ namespace Notepad
 
         private void ReadFromRTF()
         {
-            _isBlocked = true;
+            IsBlocked = true;
             richTextBox.LoadFile(_pagePath, RichTextBoxStreamType.RichText);
             richTextBox.Modified = false;
-            _isBlocked = false;
+            IsBlocked = false;
         }
 
         private void ReadFromTXT()
         {
-            _isBlocked = true;
+            IsBlocked = true;
             richTextBox.LoadFile(_pagePath, RichTextBoxStreamType.PlainText);
             richTextBox.Modified = false;
-            _isBlocked = false;
+            IsBlocked = false;
         }
 
         private void ReadFromFileToRichTextBox()
@@ -256,7 +258,7 @@ namespace Notepad
 
         private void RichTextBox_ModifiedChanged(object sender, EventArgs e)
         {
-            if (richTextBox.Modified == false || _isBlocked)
+            if (richTextBox.Modified == false || IsBlocked)
             {
                 return;
             }
@@ -291,7 +293,7 @@ namespace Notepad
 
             if (_menu.GetNumberOfMdiChildren() == 1)
             {
-                _menu.DisableAllItemsRelatedToBlank();
+                _menu.DisableAllControlsRelatedToBlank();
             }
         }
 
@@ -305,10 +307,15 @@ namespace Notepad
 
         private void Blank_Activated(object sender, EventArgs e)
         {
+            if (IsBlocked)
+            {
+                return;
+            }
+
             if (_isSaved)
-                _menu.EnableItemsAfterSaveBlank();
+                _menu.EnableControlsAfterSaveBlank();
             else
-                _menu.DisableItemsBeforeSaveBlank();
+                _menu.DisableControlsBeforeSaveBlank();
         }
 
         private void FontToolStripMenuItem_Click(object sender, EventArgs e)
@@ -343,29 +350,21 @@ namespace Notepad
 
         internal void ClearHighlight()
         {
-            _isBlocked = true;
+            IsBlocked = true;
             richTextBox.SelectAll();
             richTextBox.SelectionBackColor = Color.White;
             richTextBox.DeselectAll();
             richTextBox.Modified = false;
-            _isBlocked = false;
+            IsBlocked = false;
         }
 
         internal void HighlightSearchString(int initialIndex, int lenght)
         {
-            _isBlocked = true;
+            IsBlocked = true;
             richTextBox.Select(initialIndex, lenght);
             richTextBox.SelectionBackColor = Color.Yellow;
             richTextBox.Modified = false;
-            _isBlocked = false;
-        }
-
-        internal void SetIsSaved()
-        {
-            if(string.IsNullOrEmpty(_pagePath))
-            {
-                _isSaved = true;
-            }
+            IsBlocked = false;
         }
     }
 }

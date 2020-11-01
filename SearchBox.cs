@@ -20,6 +20,7 @@ namespace Notepad
             _blank = blank;
             blank.SearchBox = this;
             Text += _blank.PageName;
+            _blank.IsBlocked = true;
 
             Show();
         }
@@ -64,7 +65,7 @@ namespace Notepad
             --_menu.NumberOfSearhBoxInstance;
             _blank.ClearHighlight();
             _blank.SearchBox = null;
-            _blank.SetIsSaved();
+            _blank.IsBlocked = false;
         }
 
         private void RegisterCheckBox_CheckedChanged(object sender, EventArgs e)
