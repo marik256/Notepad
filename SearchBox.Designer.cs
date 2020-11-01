@@ -75,7 +75,9 @@
             this.Controls.Add(this.registerCheckBox);
             this.Controls.Add(this.searchStringTextBox);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(408, 167);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(408, 167);
             this.Name = "SearchBox";
             this.Text = "Пошук в: ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SearchBox_FormClosing);

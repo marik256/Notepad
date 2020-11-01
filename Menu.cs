@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Notepad
@@ -16,6 +17,7 @@ namespace Notepad
         internal Menu()
         {
             InitializeComponent();
+            openIcoToolStripMenuItem.Enabled = false;
 
             _allItemsRelatedToBlank = new List<ToolStripMenuItem>
             {
@@ -307,6 +309,33 @@ namespace Notepad
         {
             About about = new About(this);
             about.Show();
+        }
+
+        private void PaintToolStripButton_Click(object sender, EventArgs e)
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = "C:\\Windows\\system32\\mspaint.exe";
+            process.Start();
+        }
+
+        private void OpenIcoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Show();
+            openIcoToolStripMenuItem.Enabled = false;
+            hideIcoToolStripMenuItem.Enabled = true;
+        }
+
+        private void HideIcoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Hide();
+            openIcoToolStripMenuItem.Enabled = true;
+            hideIcoToolStripMenuItem.Enabled = false;
+        }
+
+        private void RandNumGenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RandNumGen generator = new RandNumGen();
+            generator.Show();
         }
     }
 }

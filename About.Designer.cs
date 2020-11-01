@@ -90,7 +90,9 @@
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(466, 219);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(466, 219);
             this.Name = "About";
             this.Text = "Про програму";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
