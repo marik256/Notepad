@@ -174,8 +174,6 @@
             this.ClientSize = new System.Drawing.Size(782, 458);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.richTextBox);
-            this.MaximumSize = new System.Drawing.Size(800, 500);
-            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "Blank";
             this.Activated += new System.EventHandler(this.Blank_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Blank_FormClosing);

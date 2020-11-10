@@ -28,19 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.searchStringTextBox = new System.Windows.Forms.TextBox();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.registerCheckBox = new System.Windows.Forms.CheckBox();
             this.fullWordCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // searchStringTextBox
             // 
-            this.searchStringTextBox.Font = new System.Drawing.Font("Segoe UI", 10.2F);
-            this.searchStringTextBox.Location = new System.Drawing.Point(12, 31);
-            this.searchStringTextBox.Name = "searchStringTextBox";
-            this.searchStringTextBox.Size = new System.Drawing.Size(365, 30);
-            this.searchStringTextBox.TabIndex = 0;
-            this.searchStringTextBox.TextChanged += new System.EventHandler(this.SearchWordTextBox_TextChanged);
+            this.searchTextBox.Font = new System.Drawing.Font("Segoe UI", 10.2F);
+            this.searchTextBox.Location = new System.Drawing.Point(12, 31);
+            this.searchTextBox.Name = "searchStringTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(365, 30);
+            this.searchTextBox.TabIndex = 0;
             // 
             // registerCheckBox
             // 
@@ -52,7 +51,6 @@
             this.registerCheckBox.TabIndex = 3;
             this.registerCheckBox.Text = "З урахуванням регістру";
             this.registerCheckBox.UseVisualStyleBackColor = true;
-            this.registerCheckBox.CheckedChanged += new System.EventHandler(this.RegisterCheckBox_CheckedChanged);
             // 
             // fullWordCheckBox
             // 
@@ -64,7 +62,6 @@
             this.fullWordCheckBox.TabIndex = 4;
             this.fullWordCheckBox.Text = "Цілі слова";
             this.fullWordCheckBox.UseVisualStyleBackColor = true;
-            this.fullWordCheckBox.CheckedChanged += new System.EventHandler(this.FullWordCheckBox_CheckedChanged);
             // 
             // SearchBox
             // 
@@ -73,14 +70,13 @@
             this.ClientSize = new System.Drawing.Size(390, 125);
             this.Controls.Add(this.fullWordCheckBox);
             this.Controls.Add(this.registerCheckBox);
-            this.Controls.Add(this.searchStringTextBox);
+            this.Controls.Add(this.searchTextBox);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(408, 167);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(408, 167);
             this.Name = "SearchBox";
             this.Text = "Пошук в: ";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SearchBox_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,7 +84,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox searchStringTextBox;
+        private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.CheckBox registerCheckBox;
         private System.Windows.Forms.CheckBox fullWordCheckBox;
     }

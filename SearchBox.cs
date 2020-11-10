@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -6,34 +6,36 @@ namespace Notepad
 {
     internal partial class SearchBox : Form
     {
-        private readonly Menu _menu;
-        private readonly Blank _blank;
-
-        public SearchBox(Menu menu, Blank blank)
+        public SearchBox(string pageName)
         {
             InitializeComponent();
-            ++menu.NumberOfSearhBoxInstance;
-
-            _menu = menu;
-            MdiParent = _menu;
-
-            _blank = blank;
-            blank.SearchBox = this;
-            Text += _blank.PageName;
-            _blank.IsBlocked = true;
-
-            Show();
+            Text += pageName;
         }
 
-        private void Search()
+        internal TextBox SearchTextBox => searchTextBox;
+        internal CheckBox RegisterCheckBox => registerCheckBox;
+        internal CheckBox FullWordCheckBox => fullWordCheckBox;
+
+        public sealed class SearchResult
         {
-            _blank.ClearHighlight();
-            if (string.IsNullOrEmpty(searchStringTextBox.Text))
+            public int Index { get; }
+            public int Length { get; }
+
+            public SearchResult(int index, int length)
             {
-                return;
+                Index = index;
+                Length = length;
+            }
+        }
+
+        internal IEnumerable<SearchResult> Search(string content)
+        {
+            if (string.IsNullOrEmpty(searchTextBox.Text))
+            {
+                yield break;
             }
 
-            string pattern = searchStringTextBox.Text;
+            string pattern = searchTextBox.Text;
             RegexOptions options = RegexOptions.IgnoreCase;
 
             if (registerCheckBox.Checked)
@@ -47,35 +49,12 @@ namespace Notepad
             }
 
             Regex regex = new Regex(pattern, options);
-            Match match = _blank.SearchInRichTextBox(regex, 0);
+            Match match = regex.Match(content, 0);
             while (match.Success)
             {
-                _blank.HighlightSearchString(match.Index, match.Length);
-                match = _blank.SearchInRichTextBox(regex, match.Index + match.Length);
+                yield return new SearchResult(match.Index, match.Length);
+                match = regex.Match(content, match.Index + match.Length);
             }
-        }
-
-        private void SearchWordTextBox_TextChanged(object sender, EventArgs e)
-        {
-            Search();
-        }
-
-        private void SearchBox_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            --_menu.NumberOfSearhBoxInstance;
-            _blank.ClearHighlight();
-            _blank.SearchBox = null;
-            _blank.IsBlocked = false;
-        }
-
-        private void RegisterCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            Search();
-        }
-
-        private void FullWordCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            Search();
         }
     }
 }

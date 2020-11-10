@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Notepad
@@ -12,7 +13,7 @@ namespace Notepad
         private readonly List<ToolStripMenuItem> _allItemsRelatedToSaveBlank;
         private readonly List<ToolStripButton> _allButtonsRelatedToSaveBlank;
 
-        internal int NumberOfSearhBoxInstance { get; set; } = 0;
+        private Blank ActiveBlank => ActiveMdiChild as Blank;
 
         internal Menu()
         {
@@ -23,8 +24,6 @@ namespace Notepad
             {
                 saveToolStripMenuItem,
                 saveAsToolStripMenuItem,
-                printToolStripMenuItem,
-                previewToolStripMenuItem,
                 undoToolStripMenuItem,
                 redoToolStripMenuItem,
                 cutToolStripMenuItem,
@@ -54,6 +53,11 @@ namespace Notepad
             {
                 saveToolStripButton
             };
+        }
+
+        internal int GetNumberOfBlanks()
+        {
+            return MdiChildren.OfType<Blank>().Count();
         }
 
         internal void DisableAllControlsRelatedToBlank()
@@ -108,11 +112,6 @@ namespace Notepad
             }
         }
 
-        internal int GetNumberOfMdiChildren()
-        {
-            return MdiChildren.Length;
-        }
-
         private void CreateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Blank blank = new Blank(this);
@@ -138,44 +137,37 @@ namespace Notepad
 
         private void UndoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Undo();
+            ActiveBlank?.Undo();
         }
 
         private void RedoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Redo();
+            ActiveBlank?.Redo();
         }
 
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Cut();
+            ActiveBlank?.Cut();
         }
 
         private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Copy();
+            ActiveBlank?.Copy();
         }
 
         private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Paste();
+            ActiveBlank?.Paste();
         }
 
         private void SelectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.SelectAll();
+            ActiveBlank?.SelectAll();
         }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Delete();
+            ActiveBlank?.Delete();
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -190,24 +182,12 @@ namespace Notepad
 
         internal void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ActiveMdiChild.GetType() != typeof(Blank))
-            {
-                return;
-            }
-
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Save();
+            ActiveBlank?.Save();
         }
 
         internal void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ActiveMdiChild.GetType() != typeof(Blank))
-            {
-                return;
-            }
-
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.SaveAs();
+            ActiveBlank?.SaveAs();
             EnableControlsAfterSaveBlank();
         }
         
@@ -228,28 +208,17 @@ namespace Notepad
 
         private void FontToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.ChangeFont();
+            ActiveBlank?.ChangeFont();
         }
 
         private void FontColorStripMenuItem_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.ChangeColor();
+            ActiveBlank?.ChangeColor();
         }
 
         private void SearchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ActiveMdiChild.GetType() != typeof(Blank))
-            {
-                return;
-            }
-
-            Blank _blank = (Blank)ActiveMdiChild;
-            if (_blank.SearchBox == null)
-            {
-                new SearchBox(this, (Blank)ActiveMdiChild);
-            }
+            ActiveBlank?.ShowSearch();
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -278,31 +247,22 @@ namespace Notepad
 
         private void SaveToolStripButton_Click(object sender, EventArgs e)
         {
-            if (ActiveMdiChild.GetType() != typeof(Blank))
-            {
-                return;
-            }
-
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Save();
+            ActiveBlank?.Save();
         }
 
         private void CutToolStripButton_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Cut();
+            ActiveBlank?.Cut();
         }
 
         private void CopyToolStripButton_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Copy();
+            ActiveBlank?.Copy();
         }
 
         private void PasteToolStripButton_Click(object sender, EventArgs e)
         {
-            Blank blank = (Blank)ActiveMdiChild;
-            blank.Paste();
+            ActiveBlank?.Paste();
         }
 
         private void AboutToolStripButton_Click(object sender, EventArgs e)
