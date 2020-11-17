@@ -117,10 +117,7 @@ namespace Notepad
             Text = _pageName;
             ReadFromFileToRichTextBox();
 
-            IsBlocked = true;
-            Show();
-            richTextBox.Modified = false;
-            IsBlocked = false;
+            ExecuteBlock(() => { Show(); });
         }
 
         internal void ShowSearch()
@@ -199,10 +196,7 @@ namespace Notepad
         {
             ProcessRichTextBoxContent(fileType =>
             {
-                IsBlocked = true;
-                richTextBox.LoadFile(_pagePath, fileType);
-                richTextBox.Modified = false;
-                IsBlocked = false;
+                ExecuteBlock(() => { richTextBox.LoadFile(_pagePath, fileType); });
             });
         }
 
@@ -210,10 +204,7 @@ namespace Notepad
         {
             ProcessRichTextBoxContent(fileType =>
             {
-                IsBlocked = true;
-                richTextBox.SaveFile(_pagePath, fileType);
-                richTextBox.Modified = false;
-                IsBlocked = false;
+                ExecuteBlock(() => { richTextBox.SaveFile(_pagePath, fileType); });
             });
         }
 
@@ -382,22 +373,22 @@ namespace Notepad
 
         private void ClearHighlight()
         {
-            IsBlocked = true;
+            using (BeginBlockedRegion()) 
+            { 
             richTextBox.SelectAll();
             richTextBox.SelectionBackColor = Color.White;
             richTextBox.DeselectAll();
-            richTextBox.Modified = false;
-            IsBlocked = false;
+            }
         }
 
         private void HighlightSearchString(int initialIndex, int lenght)
         {
-            IsBlocked = true;
-            richTextBox.Select(initialIndex, lenght);
-            richTextBox.SelectionBackColor = Color.Yellow;
-            richTextBox.DeselectAll();
-            richTextBox.Modified = false;
-            IsBlocked = false;
+            using (BeginBlockedRegion())
+            {
+                richTextBox.Select(initialIndex, lenght);
+                richTextBox.SelectionBackColor = Color.Yellow;
+                richTextBox.DeselectAll();
+            }
         }
 
         private void SearchInRichTextBox()
@@ -407,6 +398,40 @@ namespace Notepad
             foreach(var search in SearchBox.Search(richTextBox.Text))
             {
                 HighlightSearchString(search.Index, search.Length);
+            }
+        }
+
+        private void ExecuteBlock(Action action)
+        {
+            IsBlocked = true;
+            try
+            {
+                action();
+            }
+            finally
+            {
+                richTextBox.Modified = false;
+                IsBlocked = false;
+            }
+        }
+
+        private BlockedContainer BeginBlockedRegion() => new BlockedContainer(this);
+
+        private readonly struct BlockedContainer : IDisposable
+        {
+            private readonly Blank _blank;
+
+            public BlockedContainer(Blank blank)
+            {
+                _blank = blank;
+                _blank.IsBlocked = true;
+            }
+
+
+            public void Dispose()
+            {
+                _blank.richTextBox.Modified = false;
+                _blank.IsBlocked = false;
             }
         }
     }
