@@ -5,9 +5,9 @@ namespace Notepad
 {
     public partial class About : Form
     {
-        private readonly string link = "https://github.com/marslaw/Notepad";
+        private readonly string link = "https://github.com/marik256/Notepad";
 
-        public About(Menu menu)
+        internal About(Menu menu)
         {
             InitializeComponent();
             MdiParent = menu;
@@ -18,7 +18,7 @@ namespace Notepad
             OpenLink();
         }
 
-        internal void OpenLink()
+        private void OpenLink()
         {
             githubLinkLabel.LinkVisited = true;
             System.Diagnostics.Process.Start(link);

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Blank));
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,8 +46,10 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.amountToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.formatToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pdfReader = new AxAcroPDFLib.AxAcroPDF();
             this.contextMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pdfReader)).BeginInit();
             this.SuspendLayout();
             // 
             // richTextBox
@@ -167,6 +170,17 @@
             this.formatToolStripStatusLabel.Size = new System.Drawing.Size(74, 24);
             this.formatToolStripStatusLabel.Text = "Формат: ";
             // 
+            // pdfReader
+            // 
+            this.pdfReader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pdfReader.Enabled = true;
+            this.pdfReader.Location = new System.Drawing.Point(0, 0);
+            this.pdfReader.Name = "pdfReader";
+            this.pdfReader.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("pdfReader.OcxState")));
+            this.pdfReader.Size = new System.Drawing.Size(782, 458);
+            this.pdfReader.TabIndex = 2;
+            this.pdfReader.Visible = false;
+            // 
             // Blank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -174,6 +188,7 @@
             this.ClientSize = new System.Drawing.Size(782, 458);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.richTextBox);
+            this.Controls.Add(this.pdfReader);
             this.Name = "Blank";
             this.Activated += new System.EventHandler(this.Blank_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Blank_FormClosing);
@@ -181,6 +196,7 @@
             this.contextMenuStrip.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pdfReader)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,5 +220,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel formatToolStripStatusLabel;
+        private AxAcroPDFLib.AxAcroPDF pdfReader;
     }
 }

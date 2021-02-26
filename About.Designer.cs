@@ -62,10 +62,10 @@
             this.githubLinkLabel.AutoSize = true;
             this.githubLinkLabel.Location = new System.Drawing.Point(17, 77);
             this.githubLinkLabel.Name = "githubLinkLabel";
-            this.githubLinkLabel.Size = new System.Drawing.Size(233, 17);
+            this.githubLinkLabel.Size = new System.Drawing.Size(240, 17);
             this.githubLinkLabel.TabIndex = 2;
             this.githubLinkLabel.TabStop = true;
-            this.githubLinkLabel.Text = "https://github.com/marslaw/Notepad";
+            this.githubLinkLabel.Text = "https://github.com/marik256/Notepad";
             this.githubLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.AboutLinkLabel_LinkClicked);
             // 
             // okButton

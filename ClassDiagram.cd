@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Notepad.About">
+    <Position X="12.25" Y="10.25" Width="2.25" />
+    <Members>
+      <Method Name="About" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="githubLinkLabel" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="label1" Hidden="true" />
+      <Field Name="okButton" Hidden="true" />
+      <Field Name="pictureBox1" Hidden="true" />
+    </Members>
+    <InheritanceLine Type="System.Windows.Forms.Form" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="16.75" Y="7.191" />
+        <Point X="16.75" Y="7.624" />
+        <Point X="15.4" Y="7.624" />
+        <Point X="15.4" Y="9.741" />
+        <Point X="13.375" Y="9.741" />
+        <Point X="13.375" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAEBiAAAACAAAAEAIAAAAAAABAAEA=</HashCode>
+      <FileName>About.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Notepad.Blank">
+    <Position X="20.75" Y="1.25" Width="2.75" />
+    <Members>
+      <Field Name="amountToolStripStatusLabel" Hidden="true" />
+      <Method Name="Blank" Hidden="true" />
+      <Method Name="Blank_Activated" Hidden="true" />
+      <Method Name="Blank_FormClosed" Hidden="true" />
+      <Method Name="Blank_FormClosing" Hidden="true" />
+      <Field Name="colorDialog" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Field Name="contextMenuStrip" Hidden="true" />
+      <Field Name="copyToolStripMenuItem" Hidden="true" />
+      <Method Name="CopyToolStripMenuItem_Click" Hidden="true" />
+      <Field Name="cutToolStripMenuItem" Hidden="true" />
+      <Method Name="CutToolStripMenuItem_Click" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="fontColorToolStripMenuItem" Hidden="true" />
+      <Method Name="FontColorToolStripMenuItem_Click" Hidden="true" />
+      <Field Name="fontDialog" Hidden="true" />
+      <Field Name="fontToolStripMenuItem" Hidden="true" />
+      <Method Name="FontToolStripMenuItem_Click" Hidden="true" />
+      <Field Name="formatToolStripStatusLabel" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="pasteToolStripMenuItem" Hidden="true" />
+      <Method Name="PasteToolStripMenuItem_Click" Hidden="true" />
+      <Field Name="richTextBox" Hidden="true" />
+      <Method Name="RichTextBox_ModifiedChanged" Hidden="true" />
+      <Method Name="RichTextBox_TextChanged" Hidden="true" />
+      <Field Name="saveFileDialog" Hidden="true" />
+      <Field Name="searchToolStripMenuItem" Hidden="true" />
+      <Method Name="SearchToolStripMenuItem_Click" Hidden="true" />
+      <Field Name="statusStrip" Hidden="true" />
+      <Field Name="toolStripSeparator1" Hidden="true" />
+      <Field Name="toolStripSeparator2" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="Notepad.Blank.BlockedContainer">
+        <TypeIdentifier>
+          <NewMemberFileName>Blank.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAzKFJkQADQIJwEIgADCACIDggNFAgAAMhAYmCAIBSU=</HashCode>
+      <FileName>Blank.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Notepad.Menu">
+    <Position X="12.25" Y="1.25" Width="2.75" />
+    <Members>
+      <Field Name="aboutToolStripButton" Hidden="true" />
+      <Field Name="aboutToolStripMenuItem" Hidden="true" />
+      <Field Name="cascadeToolStripMenuItem" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Field Name="contextMenuStrip" Hidden="true" />
+      <Field Name="copyToolStripButton" Hidden="true" />
+      <Method Name="CopyToolStripButton_Click" Hidden="true" />
+      <Field Name="copyToolStripMenuItem" Hidden="true" />
+      <Field Name="createToolStripButton" Hidden="true" />
+      <Method Name="CreateToolStripButton_Click" Hidden="true" />
+      <Field Name="createToolStripMenuItem" Hidden="true" />
+      <Field Name="cutToolStripButton" Hidden="true" />
+      <Method Name="CutToolStripButton_Click" Hidden="true" />
+      <Field Name="cutToolStripMenuItem" Hidden="true" />
+      <Field Name="deleteToolStripMenuItem" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="exitToolStripMenuItem" Hidden="true" />
+      <Field Name="fontColorStripMenuItem" Hidden="true" />
+      <Field Name="fontToolStripMenuItem" Hidden="true" />
+      <Field Name="hideIcoToolStripMenuItem" Hidden="true" />
+      <Field Name="horizontalToolStripMenuItem" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Method Name="Menu" Hidden="true" />
+      <Method Name="Menu_Click" Hidden="true" />
+      <Method Name="Menu_Load" Hidden="true" />
+      <Field Name="menuStrip" Hidden="true" />
+      <Field Name="notifyIcon" Hidden="true" />
+      <Field Name="openFileDialog" Hidden="true" />
+      <Field Name="openIcoToolStripMenuItem" Hidden="true" />
+      <Field Name="openToolStripButton" Hidden="true" />
+      <Method Name="OpenToolStripButton_Click" Hidden="true" />
+      <Field Name="openToolStripMenuItem" Hidden="true" />
+      <Field Name="pasteToolStripButton" Hidden="true" />
+      <Method Name="PasteToolStripButton_Click" Hidden="true" />
+      <Field Name="pasteToolStripMenuItem" Hidden="true" />
+      <Field Name="redoToolStripMenuItem" Hidden="true" />
+      <Field Name="saveAsToolStripMenuItem" Hidden="true" />
+      <Field Name="saveToolStripButton" Hidden="true" />
+      <Method Name="SaveToolStripButton_Click" Hidden="true" />
+      <Field Name="saveToolStripMenuItem" Hidden="true" />
+      <Field Name="searchToolStripMenuItem" Hidden="true" />
+      <Field Name="selectAllToolStripMenuItem" Hidden="true" />
+      <Field Name="toolStrip1" Hidden="true" />
+      <Field Name="toolStripSeparator" Hidden="true" />
+      <Field Name="toolStripSeparator1" Hidden="true" />
+      <Field Name="toolStripSeparator3" Hidden="true" />
+      <Field Name="toolStripSeparator4" Hidden="true" />
+      <Field Name="toolStripSeparator6" Hidden="true" />
+      <Field Name="toolStripSeparator7" Hidden="true" />
+      <Field Name="toolStripSeparator8" Hidden="true" />
+      <Field Name="toolStripSeparator9" Hidden="true" />
+      <Field Name="translatorToolStripMenuItem" Hidden="true" />
+      <Field Name="undoToolStripMenuItem" Hidden="true" />
+      <Field Name="verticalToolStripMenuItem" Hidden="true" />
+      <Field Name="правкаToolStripMenuItem" Hidden="true" />
+      <Field Name="розташуватиToolStripMenuItem" Hidden="true" />
+      <Field Name="сервисToolStripMenuItem" Hidden="true" />
+      <Field Name="справкаToolStripMenuItem" Hidden="true" />
+      <Field Name="файлToolStripMenuItem" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gODmA+UDAKlYAIlJAcSG1QISmABhKIOAaiwERDACcQQ=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Notepad.SearchBox">
+    <Position X="15.75" Y="8" Width="1.75" />
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="fullWordCheckBox" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="registerCheckBox" Hidden="true" />
+      <Field Name="searchTextBox" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Notepad.SearchBox.SearchResult">
+        <TypeIdentifier>
+          <NewMemberFileName>SearchBox.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <InheritanceLine Type="System.Windows.Forms.Form" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.75" Y="7.191" />
+        <Point X="16.75" Y="7.867" />
+        <Point X="16.625" Y="7.867" />
+        <Point X="16.625" Y="8" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAASAAAAAEAACARAACAAAEAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>SearchBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Notepad.Translator">
+    <Position X="15.25" Y="1.25" Width="3" />
+    <Members>
+      <Field Name="addButton" Hidden="true" />
+      <Field Name="clearAllToolStripMenuItem" Hidden="true" />
+      <Field Name="components" Hidden="true" />
+      <Field Name="contextMenuStrip" Hidden="true" />
+      <Field Name="copyFromSourceToolStripMenuItem" Hidden="true" />
+      <Field Name="copyFromTargetToolStripMenuItem" Hidden="true" />
+      <Field Name="cutFromSourceToolStripMenuItem" Hidden="true" />
+      <Field Name="cutFromTargetToolStripMenuItem" Hidden="true" />
+      <Field Name="deleteToolStripMenuItem" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Field Name="exportButton" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Field Name="listView" Hidden="true" />
+      <Field Name="pasteToSourceToolStripMenuItem" Hidden="true" />
+      <Field Name="pasteToTargetToolStripMenuItem" Hidden="true" />
+      <Field Name="sourceContextMenuStrip" Hidden="true" />
+      <Field Name="sourceLang" Hidden="true" />
+      <Field Name="sourceLangComboBox" Hidden="true" />
+      <Field Name="sourceLangRichTextBox" Hidden="true" />
+      <Field Name="targetContextMenuStrip" Hidden="true" />
+      <Field Name="targetLang" Hidden="true" />
+      <Field Name="targetLangComboBox" Hidden="true" />
+      <Field Name="targetLangRichTextBox" Hidden="true" />
+      <Field Name="translateButton" Hidden="true" />
+      <Method Name="Translator" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AJBABABCAChQAAEBBASAAARGAAEAACAhoCAAJoQBADA=</HashCode>
+      <FileName>Translator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Windows.Forms.Form" Collapsed="true">
+    <Position X="16" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Notepad
@@ -111,7 +110,7 @@ namespace Notepad
         {
             _isSaved = true;
             _pagePath = pagePath;
-            _pageFormat = Path.GetExtension(pagePath);
+            _pageFormat = System.IO.Path.GetExtension(pagePath);
             formatToolStripStatusLabel.Text = _formatLable + _pageFormat;
             _pageName = _pagePath;
             Text = _pageName;
@@ -172,7 +171,7 @@ namespace Notepad
 
         private RichTextBoxStreamType? GetCurrentRichTextBoxStreamFileType()
         {
-            switch (Path.GetExtension(_pagePath))
+            switch (_pageFormat)
             {
                 case ".rtf":
                     return RichTextBoxStreamType.RichText;
@@ -194,10 +193,22 @@ namespace Notepad
 
         private void ReadFromFileToRichTextBox()
         {
-            ProcessRichTextBoxContent(fileType =>
+            if (_pageFormat == ".pdf")
             {
-                ExecuteBlock(() => { richTextBox.LoadFile(_pagePath, fileType); });
-            });
+                richTextBox.Visible = false;
+                pdfReader.Visible = true;
+                amountToolStripStatusLabel.Visible = false;
+                pdfReader.src = _pagePath;
+            }
+            else
+            {
+                ProcessRichTextBoxContent(fileType =>
+                {
+                    ExecuteBlock(() => {
+                        richTextBox.LoadFile(_pagePath, fileType);
+                    });
+                });
+            }
         }
 
         private void WriteToFileFromRichTextBox()
@@ -375,9 +386,9 @@ namespace Notepad
         {
             using (BeginBlockedRegion()) 
             { 
-            richTextBox.SelectAll();
-            richTextBox.SelectionBackColor = Color.White;
-            richTextBox.DeselectAll();
+                richTextBox.SelectAll();
+                richTextBox.SelectionBackColor = Color.White;
+                richTextBox.DeselectAll();
             }
         }
 
